@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Sabrina ❤️</title>
+    <!-- Importando fontes decorativas e elegantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            background-color: #0b0710;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Fundo Fixo Decorado (Estrelinhas / Brilhos) */
+        .bg-decorations {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image: 
+                radial-gradient(white 1px, transparent 0),
+                radial-gradient(rgba(255, 51, 102, 0.4) 1px, transparent 0);
+            background-size: 50px 50px, 80px 80px;
+            background-position: 0 0, 25px 25px;
+            opacity: 0.25;
+        }
+
+        /* Corações flutuantes de fundo */
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            color: rgba(255, 51, 102, 0.2);
+            font-size: 1.5rem;
+            animation: floatUp 8s infinite linear;
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-duration: 7s; font-size: 1.2rem; }
+        .heart:nth-child(2) { left: 25%; animation-duration: 9s; animation-delay: 1s; }
+        .heart:nth-child(3) { left: 40%; animation-duration: 6s; animation-delay: 2s; font-size: 1.8rem; }
+        .heart:nth-child(4) { left: 60%; animation-duration: 10s; animation-delay: 0.5s; }
+        .heart:nth-child(5) { left: 75%; animation-duration: 8s; animation-delay: 3s; font-size: 1.4rem; }
+        .heart:nth-child(6) { left: 90%; animation-duration: 7.5s; animation-delay: 1.5s; }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-105vh) scale(1.3) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 2;
+        }
+
+        /* Animação de transição das flores */
+        #transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            visibility: hidden;
+        }
+
+        #transition-overlay.active {
+            visibility: visible;
+        }
+
+        .flower-wave {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #1a0b1c, #0b0710);
+            transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .flower-wave.animate {
+            transform: translateY(-100%);
+        }
+
+        /* Conteúdo Geral */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            gap: 15px;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #ffb6c1;
+            text-shadow: 0 2px 12px rgba(255, 51, 102, 0.3);
+            margin-bottom: 5px;
+        }
+
+        .counter {
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 14px 18px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 5px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            line-height: 1.5;
+        }
+
+        .btn-next {
+            background: #ff3366;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-next:active {
+            transform: scale(0.95);
+        }
+
+        /* Widget Spotify */
+        .spotify-widget {
+            background: #282828;
+            width: 100%;
+            max-width: 340px;
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.05);
+            text-align: left;
+        }
+
+        .spotify-cover {
+            width: 56px;
+            height: 56px;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .spotify-info {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .spotify-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .spotify-artist {
+            font-size: 0.75rem;
+            color: #b3b3b3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+
+        .spotify-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .spotify-controls svg {
+            width: 18px;
+            height: 18px;
+            fill: #b3b3b3;
+        }
+
+        .spotify-controls .play-btn {
+            width: 28px;
+            height: 28px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spotify-controls .play-btn svg {
+            fill: black;
+            width: 12px;
+            height: 12px;
+            margin-left: 2px;
+        }
+
+        .spotify-logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 16px;
+            height: 16px;
+            fill: #1db954;
+        }
+
+        /* Estilo Carta de Amor */
+        .romantic-box {
+            width: 100%;
+            max-width: 350px;
+            padding: 25px 20px;
+            background: #fbf5e9;
+            color: #2c1d24;
+            border-radius: 8px;
+            text-align: left;
+            max-height: 60vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(139, 69, 19, 0.08);
+            border: 1px solid #e6d5be;
+            position: relative;
+        }
+
+        .romantic-box::before {
+            content: '💌';
+            display: block;
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .romantic-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.35rem;
+            line-height: 1.6;
+            color: #3d2630;
+            text-align: center;
+        }
+
+        /* Momentos Marcantes com Moldura Romântica */
+        .moment-card {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .moment-card.active {
+            display: block;
+        }
+
+        .image-frame {
+            padding: 10px 10px 0 10px;
+            background: #000000;
+        }
+
+        .moment-img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            object-position: center 25%;
+            background-color: #000000;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 51, 102, 0.3);
+            box-shadow: 0 0 12px rgba(255, 51, 102, 0.15);
+        }
+
+        .moment-caption {
+            padding: 10px 14px;
+            font-size: 0.8rem;
+            color: #e2e2e2;
+            line-height: 1.35;
+        }
+
+        .thumbnails {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .thumb {
+            width: 42px;
+            height: 42px;
+            border-radius: 6px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.4;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .thumb.active {
+            opacity: 1;
+            border-color: #ff3366;
+            transform: scale(1.05);
+        }
+
+        /* Página Final */
+        .final-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff3366;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
+            line-height: 1.2;
+        }
+
+        /* Navegação Inferior */
+        .nav-arrows {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.82rem;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:active {
+            background: rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fundo Fixo Decorado (Estrelinhas / Brilhos) -->
+    <div class="bg-decorations"></div>
+
+    <!-- Corações flutuantes de fundo -->
+    <div class="floating-hearts">
+        <div class="heart">❤️</div>
+        <div class="heart">💖</div>
+        <div class="heart">✨</div>
+        <div class="heart">❤️</div>
+        <div class="heart">💕</div>
+        <div class="heart">✨</div>
+    </div>
+
+    <!-- Transição de Flores Suave -->
+    <div id="transition-overlay">
+        <div class="flower-wave" id="flowerWave">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="#ff3366"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <p style="font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #ffb6c1; margin-top: 10px; letter-spacing: 2px;">Amor Eterno</p>
+        </div>
+    </div>
+
+    <!-- Página 1: Início / Cronômetro -->
+    <div class="page active" id="page-0">
+        <div class="container">
+            <h1>Nosso Tempo Juntos</h1>
+            <div class="counter" id="counter">Carregando tempo...</div>
+            <button class="btn-next" onclick="nextPage()">Continuar ❤️</button>
+        </div>
+    </div>
+
+    <!-- Página 2: Música -->
+    <div class="page" id="page-1">
+        <div class="container">
+            <h1>Nossa Música</h1>
+            <a href="https://open.spotify.com/track/1KBeIjKEOr95FXKRkYB3pD?si=SidEmSp3TMO30-Zv1fWgAw&utm_source=copy-link&sci=spotify%3Acard-config%3A4Ww6xpMbPLhlG4NAdYfH95" target="_blank" class="spotify-widget">
+                <svg class="spotify-logo" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.599-.12-.42.18-.78.6-.9 4.56-1.02 8.52-.6 11.7 1.38.36.18.48.66.24 1.02zm1.44-3.3c-.301.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.41-.48.18-1.02-.06-1.2-.54-.18-.48.06-1.02.54-1.2 4.2-1.26 9.6-.6 13.56 1.8.42.3.54.84.3 1.26zm.12-3.42C15.24 8.4 8.88 8.16 5.16 9.24c-.6.18-1.2-.18-1.38-.78-.18-.6.18-1.2.78-1.38 4.32-1.26 11.4-.96 15.96 1.68.54.3.72 1.02.42 1.56-.3.54-1.02.72-1.56.42z"/></svg>
+                <img src="img5.jpg" class="spotify-cover" alt="Capa Album" id="spotifyImg">
+                <div class="spotify-info">
+                    <div class="spotify-title">Quando É Amor</div>
+                    <div class="spotify-artist">Só Pra Contrariar</div>
+                    <div class="spotify-controls">
+                        <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                        <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                    </div>
+                </div>
+            </a>
+            <div class="nav-arrows">
+                <button class="nav-btn" onclick="prevPage()">← Voltar</button>
+                <button class="nav-btn" onclick="nextPage()">Avançar →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página 3: Texto Romântico (Carta de Amor) -->
+    <div class="page" id="page-2">
+        <div class="container">
+            <div class="romantic-box">
+                <p class="romantic-text">
+                    Sabrina, queria te dizer que contigo vivo os melhores dias da minha vida e que a cada ano, mês, dia, hora, segundo eu só penso estar com você e realizar todos os sonhos que temos. Você chegou na minha vida de repente e desde então eu comecei a te amar e te querer mais todos os dias, pois o nosso amor, por mais rápido que tenha surgido, veio como se existisse há muitos anos e a intimidade e conexão que criamos é algo que vale mais que tudo pra mim. Só quero que você saiba que eu te escolhi uma vez e vou continuar escolhendo para sempre.
+                </p>
+            </div>
+            <div class="nav-arrows">
+                <button class="nav-btn" onclick="prevPage()">← Voltar</button>
+                <button class="nav-btn" onclick="nextPage()">Avançar →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página 4: Momentos Marcantes -->
+    <div class="page" id="page-3">
+        <div class="container">
+            <h1>Momentos Marcantes</h1>
+            
+            <div style="width: 100%; max-width: 330px;">
+                <!-- Momento 1 -->
+                <div class="moment-card active" id="moment-0">
+                    <div class="image-frame">
+                        <img src="img1.jpg" class="moment-img" alt="Momento 1">
+                    </div>
+                    <div class="moment-caption">Nosso primeiro ano juntos, marco de toda a persistência que temos no nosso amor e prova de que juntos superamos qualquer desavença.</div>
+                </div>
+                <!-- Momento 2 -->
+                <div class="moment-card" id="moment-1">
+                    <div class="image-frame">
+                        <img src="img2.jpg" class="moment-img" alt="Momento 2">
+                    </div>
+                    <div class="moment-caption">Dia que fomos no Parque do Carmo, um dos rolês que mais tivemos proximidade e pra mim foi ótimo para o nosso relacionamento, um dia especial que vai estar na minha memória pra sempre.</div>
+                </div>
+                <!-- Momento 3 -->
+                <div class="moment-card" id="moment-2">
+                    <div class="image-frame">
+                        <img src="img3.jpg" class="moment-img" alt="Momento 3">
+                    </div>
+                    <div class="moment-caption">Os domingos que passamos juntos, sempre vendo 'Minha Mãe é uma Peça', dando risadas e beijinhos bem gostosos, sempre colecionando momentos incríveis entre nós.</div>
+                </div>
+                <!-- Momento 4 -->
+                <div class="moment-card" id="moment-3">
+                    <div class="image-frame">
+                        <img src="img4.jpg" class="moment-img" alt="Momento 4">
+                    </div>
+                    <div class="moment-caption">Uma das nossas primeiras fotos, mostrando de onde começamos, o quanto mudamos e como nosso amor permanece lindo desde o princípio.</div>
+                </div>
+
+                <!-- Miniaturas -->
+                <div class="thumbnails">
+                    <img src="img1.jpg" class="thumb active" onclick="showMoment(0)">
+                    <img src="img2.jpg" class="thumb" onclick="showMoment(1)">
+                    <img src="img3.jpg" class="thumb" onclick="showMoment(2)">
+                    <img src="img4.jpg" class="thumb" onclick="showMoment(3)">
+                </div>
+            </div>
+
+            <div class="nav-arrows">
+                <button class="nav-btn" onclick="prevPage()">← Voltar</button>
+                <button class="nav-btn" onclick="nextPage()">Avançar →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página 5: Fim -->
+    <div class="page" id="page-4">
+        <div class="container">
+            <div class="final-title">Eu te amo para sempre ❤️</div>
+            <div class="nav-arrows">
+                <button class="nav-btn" onclick="prevPage()">← Voltar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cronômetro detalhado com Anos, Meses, Dias, Horas, Minutos e Segundos (18/11/2024)
+        const startDate = new Date(2024, 10, 18, 0, 0, 0);
+
+        function updateCounter() {
+            const now = new Date();
+            
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
+            let hours = now.getHours() - startDate.getHours();
+            let minutes = now.getMinutes() - startDate.getMinutes();
+            let seconds = now.getSeconds() - startDate.getSeconds();
+
+            if (seconds < 0) {
+                seconds += 60;
+                minutes--;
+            }
+            if (minutes < 0) {
+                minutes += 60;
+                hours--;
+            }
+            if (hours < 0) {
+                hours += 24;
+                days--;
+            }
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (months < 0) {
+                months += 12;
+                years--;
+            }
+
+            document.getElementById('counter').innerHTML = 
+                `<b>${years}</b> anos, <b>${months}</b> meses, <b>${days}</b> dias<br>` +
+                `<b>${hours}</b>h <b>${minutes}</b>m <b>${seconds}</b>s`;
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // Navegação entre páginas com transição suave
+        let currentPage = 0;
+        const totalPages = 5;
+        let isAnimating = false;
+
+        function goToPage(targetPage) {
+            if (isAnimating || targetPage < 0 || targetPage >= totalPages || targetPage === currentPage) return;
+            isAnimating = true;
+
+            const overlay = document.getElementById('transition-overlay');
+            const wave = document.getElementById('flowerWave');
+            
+            overlay.classList.add('active');
+            wave.classList.add('animate');
+
+            setTimeout(() => {
+                document.getElementById(`page-${currentPage}`).classList.remove('active');
+                currentPage = targetPage;
+                document.getElementById(`page-${currentPage}`).classList.add('active');
+                window.scrollTo(0, 0);
+            }, 750);
+
+            setTimeout(() => {
+                wave.classList.remove('animate');
+                overlay.classList.remove('active');
+                isAnimating = false;
+            }, 1600);
+        }
+
+        function nextPage() {
+            goToPage(currentPage + 1);
+        }
+
+        function prevPage() {
+            goToPage(currentPage - 1);
+        }
+
+        // Galeria de Momentos
+        function showMoment(index) {
+            const cards = document.querySelectorAll('.moment-card');
+            const thumbs = document.querySelectorAll('.thumb');
+            
+            cards.forEach(c => c.classList.remove('active'));
+            thumbs.forEach(t => t.classList.remove('active'));
+
+            cards[index].classList.add('active');
+            thumbs[index].classList.add('active');
+        }
+    </script>
+</body>
+</html>
