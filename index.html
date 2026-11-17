@@ -581,4 +581,62 @@
                 years--;
             }
 
-            document.getElementB
+            document.getElementById('counter').innerHTML = 
+                `<b>${years}</b> anos, <b>${months}</b> meses, <b>${days}</b> dias<br>` +
+                `<b>${hours}</b>h <b>${minutes}</b>m <b>${seconds}</b>s`;
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // Navegação entre páginas com transição suave
+        let currentPage = 0;
+        const totalPages = 5;
+        let isAnimating = false;
+
+        function goToPage(targetPage) {
+            if (isAnimating || targetPage < 0 || targetPage >= totalPages || targetPage === currentPage) return;
+            isAnimating = true;
+
+            const overlay = document.getElementById('transition-overlay');
+            const wave = document.getElementById('flowerWave');
+            
+            overlay.classList.add('active');
+            wave.classList.add('animate');
+
+            setTimeout(() => {
+                document.getElementById(`page-${currentPage}`).classList.remove('active');
+                currentPage = targetPage;
+                document.getElementById(`page-${currentPage}`).classList.add('active');
+                window.scrollTo(0, 0);
+            }, 750);
+
+            setTimeout(() => {
+                wave.classList.remove('animate');
+                overlay.classList.remove('active');
+                isAnimating = false;
+            }, 1600);
+        }
+
+        function nextPage() {
+            goToPage(currentPage + 1);
+        }
+
+        function prevPage() {
+            goToPage(currentPage - 1);
+        }
+
+        // Galeria de Momentos
+        function showMoment(index) {
+            const cards = document.querySelectorAll('.moment-card');
+            const thumbs = document.querySelectorAll('.thumb');
+            
+            cards.forEach(c => c.classList.remove('active'));
+            thumbs.forEach(t => t.classList.remove('active'));
+
+            cards[index].classList.add('active');
+            thumbs[index].classList.add('active');
+        }
+    </script>
+</body>
+</html>
